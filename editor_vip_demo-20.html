@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editor VIP — Video Editing Clients</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#080b14;color:#fff}
+header{padding:18px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #242a3b}
+.logo{font-size:24px;font-weight:800}.logo span{color:#ffd43b}
+button{border:0;border-radius:10px;padding:12px 18px;font-weight:700;cursor:pointer}
+.hero{padding:70px 7%;text-align:center;background:radial-gradient(circle at top,#202a55,#080b14 55%)}
+.hero h1{font-size:clamp(36px,7vw,64px);margin:10px 0}.hero p{color:#b9c0d4;font-size:18px}
+.cta{background:#ffd43b;color:#111;margin-top:18px}.section{padding:45px 7%;max-width:1100px;margin:auto}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.card{background:#111625;border:1px solid #293047;border-radius:18px;padding:22px}.card h3{margin-top:0}
+.vip{border:1px solid #ffd43b;background:linear-gradient(145deg,#191a25,#101522)}
+.price{font-size:42px;font-weight:800;margin:10px 0}.muted{color:#9da6bc}
+.client{display:flex;justify-content:space-between;gap:15px;align-items:center}.badge{background:#24304e;padding:6px 10px;border-radius:20px;font-size:12px}
+.hidden{filter:blur(7px);user-select:none}.notice{padding:14px;background:#151b2b;border-radius:12px;color:#cbd2e3}
+footer{text-align:center;padding:30px;color:#747d94;border-top:1px solid #242a3b}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:20px}.modalbox{background:#111625;border:1px solid #303951;border-radius:20px;padding:28px;max-width:420px;width:100%}
+input,textarea{width:100%;padding:12px;margin:7px 0 14px;border-radius:9px;border:1px solid #35405b;background:#090d18;color:white}
+</style>
+</head>
+<body>
+<header><div class="logo">Editor <span>VIP</span></div><button onclick="openVIP()">👑 VIP ₹99</button></header>
+
+<section class="hero">
+<h1>Get More <span style="color:#ffd43b">Video Editing Clients</span></h1>
+<p>VIP access लेकर उपलब्ध genuine client opportunities एक जगह देखें।</p>
+<button class="cta" onclick="openVIP()">Unlock VIP — ₹99</button>
+</section>
+
+<section class="section">
+<h2>Why VIP?</h2>
+<div class="cards">
+<div class="card"><h3>🎯 Client Opportunities</h3><p class="muted">Admin द्वारा जोड़ी गई genuine opportunities देखें।</p></div>
+<div class="card"><h3>🔒 Private Access</h3><p class="muted">VIP access के बिना private client details दिखाई नहीं देंगी।</p></div>
+<div class="card"><h3>⚡ Easy Dashboard</h3><p class="muted">काम, budget और contact instructions एक जगह।</p></div>
+</div>
+</section>
+
+<section class="section">
+<h2>VIP Client Board</h2>
+<div id="locked">
+<div class="notice">🔐 Client opportunities देखने के लिए पहले VIP Access unlock करें।</div>
+<div class="card vip" style="margin-top:18px">
+<h3>👑 VIP Access</h3><div class="price">₹99</div>
+<p class="muted">One-time access demo. Real payment gateway बाद में connect किया जा सकता है.</p>
+<button class="cta" onclick="openVIP()">Unlock VIP</button>
+</div></div>
+
+<div id="clients" style="display:none">
+<div class="notice">✅ VIP unlocked — नीचे उपलब्ध client opportunities हैं.</div>
+<div class="cards" id="clientList" style="margin-top:18px"></div>
+</div>
+</section>
+
+<div class="modal" id="modal">
+<div class="modalbox">
+<h2>👑 Unlock VIP</h2>
+<p class="muted">यह अभी demo payment screen है। वास्तविक ₹99 payment के लिए authorised payment gateway जोड़ना होगा।</p>
+<button class="cta" onclick="demoUnlock()">Demo Unlock</button>
+<button onclick="closeVIP()" style="margin-left:8px;background:#293047;color:white">Close</button>
+</div></div>
+
+<footer>© 2026 Editor VIP · Genuine opportunities only</footer>
+
+<script>
+const demoClients=[
+ {title:"Short-form Video Editor",type:"Instagram Reels",budget:"₹1,000–₹3,000/video",details:"Client contact details admin द्वारा verify होने के बाद साझा किए जाएंगे."},
+ {title:"YouTube Shorts Editor",type:"YouTube Shorts",budget:"₹2,000–₹5,000/video",details:"Editing: captions, cuts, pacing और sound effects."}
+];
+function openVIP(){document.getElementById('modal').style.display='flex'}
+function closeVIP(){document.getElementById('modal').style.display='none'}
+function demoUnlock(){
+ localStorage.setItem('editorVipDemo','true'); closeVIP(); showClients();
+}
+function showClients(){
+ document.getElementById('locked').style.display='none';
+ document.getElementById('clients').style.display='block';
+ document.getElementById('clientList').innerHTML=demoClients.map(c=>`
+ <div class="card client"><div><span class="badge">${c.type}</span><h3>${c.title}</h3>
+ <p class="muted">${c.details}</p><b>${c.budget}</b></div><button class="cta">View</button></div>`).join('');
+}
+if(localStorage.getItem('editorVipDemo')==='true') showClients();
+</script>
+</body>
+</html>
